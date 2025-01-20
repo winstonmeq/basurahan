@@ -14,7 +14,7 @@ const session = await auth.api.getSession({
   });
 
   if (!session) {
-    return redirect('/sign-in/')
+    return redirect('/')
   }
 
   const user = session?.user

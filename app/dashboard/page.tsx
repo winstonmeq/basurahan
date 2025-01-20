@@ -12,9 +12,9 @@ const Dashboard_page = async () => {
       headers: await headers(),
     });
 
-    if (!session) {
-      return redirect('/sign-in/')
-    }
+    // if (!session) {
+    //   return redirect('/sign-in/')
+    // }
 
   return (
 

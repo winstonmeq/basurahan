@@ -30,9 +30,7 @@ export default function SignUp() {
 
 	const [pending, setPending] = useState(false);
 	const { toast } = useToast();
-	 //const [role, setRole] = useState("user"); // Default role is "user"
 
-	const role = "user"
 	const form = useForm<z.infer<typeof signUpSchema>>({
 		resolver: zodResolver(signUpSchema),
 		defaultValues: {
@@ -40,7 +38,6 @@ export default function SignUp() {
 			email: "",
 			password: "",
 			confirmPassword: "",
-			 role:role
 		},
 	});
 
