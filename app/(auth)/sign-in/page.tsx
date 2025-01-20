@@ -51,7 +51,7 @@ export default function SignIn() {
 					setPendingCredentials(true);
 				},
 				onSuccess: async () => {
-					router.push("/dashboard");
+					router.push("/");
 					router.refresh();
 				},
 				onError: (ctx: ErrorContext) => {
@@ -100,8 +100,8 @@ export default function SignIn() {
         <Image
           src="/6343825.jpg" 
           alt="Illustration"
-		  width={1000} // Desired width
-          height={1000} // Desired height
+		  width={500} // Desired width
+          height={500} // Desired height
         //   className="w-3/4 lg:w-full"
         />
       </div>

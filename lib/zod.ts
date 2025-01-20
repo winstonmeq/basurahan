@@ -15,10 +15,10 @@ const getNameSchema = () =>
     .min(1, "Name is required")
     .max(50, "Name must be less than 50 characters");
 
-  const getRoleSchema = () =>
-      string({ required_error: "Role is required" })
-        .min(1, "Role is required")
-        .max(50, "Role must be less than 50 characters");
+  // const getRoleSchema = () =>
+  //     string({ required_error: "Role is required" })
+  //       .min(1, "Role is required")
+  //       .max(50, "Role must be less than 50 characters");
     
     
 
@@ -29,7 +29,7 @@ export const signUpSchema = object({
   email: getEmailSchema(),
   password: getPasswordSchema("password"),
   confirmPassword: getPasswordSchema("confirmPassword"),
-  role: getRoleSchema()
+  // role: getRoleSchema()
 })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
