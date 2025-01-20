@@ -1,16 +1,16 @@
 
-import { auth } from "@/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+// import { auth } from "@/auth";
+// import { headers } from "next/headers";
+// import { redirect } from "next/navigation";
 import Datatable  from "./data_tables";
 import Navbar from "@/components/navbar";
 
 
 const Dashboard_page = async () => {
 
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    // const session = await auth.api.getSession({
+    //   headers: await headers(),
+    // });
 
     // if (!session) {
     //   return redirect('/sign-in/')
