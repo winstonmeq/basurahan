@@ -97,7 +97,7 @@ export default function DetailPage() {
            
             <div className="pt-8 flex flex-col ">
               <Image
-                src={`/images/${image.filename}`}
+                src={image.filename}
                 alt={image.title}
                 width={800}
                 height={400}

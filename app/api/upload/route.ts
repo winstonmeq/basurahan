@@ -6,11 +6,14 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
+
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const file = formData.get('image') as File | null;
-    const title = formData.get('title') as string | null;
+    const title = formData.get('title') as string | null;    
+    
     const location = formData.get('location') as string | null;
     const remarks = formData.get('remarks') as string | null;
     const userId = formData.get('userId') as string | null; // Assuming userId is passed from the frontend

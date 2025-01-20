@@ -20,6 +20,11 @@ export async function GET(request:NextRequest) {
     const image_data = await prisma.image.findMany({
       skip,
       take: limit,
+
+      orderBy: {
+        createdAt: 'desc', // Assumes `createdAt` is a field in your `image` table
+      },
+      
       include: {
         comments: true,
         user: true

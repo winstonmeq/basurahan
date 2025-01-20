@@ -97,7 +97,7 @@ const Datatables = () => {
                   <CardContent>
                     <Link href={`/dashboard/per_image/${item.id}`}>
                       <Image
-                        src={`/images/${item.filename}`} // Fix template string usage
+                        src={item.filename} // Fix template string usage
                         alt={item.title}
                         width={800}
                         height={400}
@@ -133,6 +133,7 @@ const Datatables = () => {
                     alt="Profile"
                     width={300}
                     height={300} 
+                    priority
                     className="w-full h-full object-cover" 
                   />
               </div>
@@ -147,6 +148,7 @@ const Datatables = () => {
                     alt="Profile" 
                     width={300}
                     height={300} 
+                    priority
                     className="w-full h-full object-cover" 
                   />
               </div>
@@ -169,6 +171,7 @@ const Datatables = () => {
                     alt="Profile" 
                     width={300}
                     height={300} 
+                    priority
                     className="w-full h-full object-cover" 
                   />
               </div>

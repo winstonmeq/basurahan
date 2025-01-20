@@ -22,7 +22,7 @@ const items = [
   },
   {
     title: "Upload",
-    url: "/dashboard/upload",
+    url: "/dashboard/cloudinary",
     icon: Inbox,
   },
   {

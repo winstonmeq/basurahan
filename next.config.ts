@@ -1,12 +1,24 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Add other config options here if needed */
 
   images: {
-    domains: ['img.freepik.com'], // Add the domain here
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com", // Correct domain for Cloudinary
+        port: "",
+        pathname: "/**", // Allow all paths under this hostname
+      },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com", // Existing domain
+        port: "",
+        pathname: "/**", // Allow all paths under this hostname
+      },
+    ],
   },
-  
 };
 
 export default nextConfig;

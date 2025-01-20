@@ -20,7 +20,7 @@ const PostBox = () => {
           
           {/* Input Placeholder */}
           <button className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-gray-600 focus:outline-none ">
-          <Link href={"/dashboard/upload"}>         
+          <Link href={"/dashboard/cloudinary"}>         
           <p className="text-left">What on your mind? </p>          
           </Link>
           </button>
@@ -37,7 +37,7 @@ const PostBox = () => {
           <button className="flex items-center space-x-2 text-red-500 hover:bg-gray-100 px-4 py-2 rounded-lg">
             <i className="fas fa-video"></i>
             <span className="text-sm font-medium">
-            <Link href="/dashboard/upload">Report</Link>
+            <Link href="/dashboard/cloudinary">Report</Link>
             </span>
           </button>
   

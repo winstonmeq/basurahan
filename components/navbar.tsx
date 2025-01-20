@@ -16,7 +16,7 @@ export default async function Navbar() {
 	return (
 		<nav className="flex flex-row justify-between w-full items-center p-2 bg-slate-50">
 			<Link href="/" className="text-xl font-bold">
-				<span className="font-light text-xl">Welcome back: {session?.user?.name}</span>
+				<span className="font-light">Welcome back: {session?.user?.name}</span>
 			</Link>
 			<AuthButtons />
 		</nav>
