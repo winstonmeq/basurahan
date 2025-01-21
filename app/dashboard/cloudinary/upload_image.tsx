@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-// import Image from 'next/image';
+import Image from 'next/image';
 
 export default function UploadPage({ userId }: { userId: string }) {
 
@@ -119,7 +119,7 @@ export default function UploadPage({ userId }: { userId: string }) {
           {uploadStatus && (
             <p className="mt-4 font-semibold text-center">{uploadStatus}</p>
           )}
-          {/* {uploadedImageURL && (
+          {uploadedImageURL && (
             <div className="mt-4">
               <h2 className="font-semibold mb-2">Uploaded Image:</h2>
               <Image
@@ -131,7 +131,7 @@ export default function UploadPage({ userId }: { userId: string }) {
                 className="max-w-xs max-h-48"
               />
             </div>
-          )} */}
+          )}
         </CardContent>
         <CardFooter>
         
