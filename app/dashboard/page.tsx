@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Datatable from "./data_tables";
-import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SignoutButton from "@/components/signout-button";

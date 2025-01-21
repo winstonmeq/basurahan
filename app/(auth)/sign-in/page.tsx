@@ -52,7 +52,7 @@ export default function SignIn() {
 				},
 				onSuccess: async () => {
 					router.push("/dashboard");
-					router.refresh();
+					// router.refresh();
 				},
 				onError: (ctx: ErrorContext) => {
 					console.log(ctx);
