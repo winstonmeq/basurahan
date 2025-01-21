@@ -14,14 +14,14 @@ export default function UploadPage({ userId }: { userId: string }) {
   const [location, setLocation] = useState('');
   const [remarks, setRemarks] = useState('');
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
-  // const [uploadedImageURL, setUploadedImageURL] = useState<string | null>(null);
+  const [uploadedImageURL, setUploadedImageURL] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
       setUploadStatus(null);
-      // setUploadedImageURL(null); // Reset URL when new file is selected
+      setUploadedImageURL(null); // Reset URL when new file is selected
     }
   };
 
@@ -56,7 +56,7 @@ export default function UploadPage({ userId }: { userId: string }) {
       if (response.ok) {
         const data = await response.json();
         setUploadStatus('Image uploaded successfully!');
-        // setUploadedImageURL(data.secure_url);
+        setUploadedImageURL(data.secure_url);
 
         console.log(data)
 
@@ -68,7 +68,7 @@ export default function UploadPage({ userId }: { userId: string }) {
       console.error('Error during image upload:', error);
       setUploadStatus('Upload failed');
     } finally {
-      router.back()
+      // router.back()
     }
   };
 
