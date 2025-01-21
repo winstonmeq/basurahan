@@ -24,6 +24,9 @@ export default function AuthButtons() {
 		</div>
 	) : (
 		<div className="flex items-center gap-2">
+			<Link href="/dashboard">
+				<Button>Dashboard</Button>
+			</Link>
 			<SignoutButton />
 		</div>
 	);

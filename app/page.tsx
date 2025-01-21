@@ -13,34 +13,30 @@ const Volunteer = () => {
     <div>
       {/* Navbar */}
       <header className="bg-white shadow-md">
-        <nav className="container mx-auto flex items-center justify-between p-4">
+        <nav className="flex mx-auto flex-row items-center justify-between p-4">
           {/* Logo */}
+          <div className="flex flex-row w-full">
           <div className="flex items-center space-x-4">
             <Image
               src="/profile.png" // Replace this with your logo file
               alt="Save the Children Logo"
-              width={50}
-              height={50}
+              width={30}
+              height={30}
             />
           </div>
 
           {/* Desktop Menu */}
-          <ul className="hidden space-x-6 lg:flex w-full">
-            {/* <li><a href="#Volunter1" className="text-gray-700 hover:text-red-600">Who We Are</a></li>
+          <ul className="hidden space-x-6 lg:flex w-full p-4">
+            <li><a href="#Volunter1" className="text-gray-700 hover:text-red-600">Who We Are</a></li>
             <li><a href="#what-we-do" className="text-gray-700 hover:text-red-600">What We Do</a></li>
             <li><a href="#" className="text-gray-700 hover:text-red-600">Where We Are</a></li>
-            <li><a href="#" className="text-gray-700 hover:text-red-600">Get Involved</a></li>
-            <li><Link href="/sign-up" className="text-gray-700 hover:text-red-600">Register</Link></li> */}
-
-			<nav className="flex flex-row justify-between w-full items-center p-2 bg-slate-50">
-			<Link href="/" className="text-xl font-bold">
-				{/* <span className="font-light">Welcome back: </span> */}
-			</Link>
-			<AuthButtons />
-		</nav>
+            {/* <li><Link href="/dashboard" className="text-gray-700 hover:text-red-600">Dashboard</Link></li>		
+            <li><Link href="/sign-up" className="text-gray-700 hover:text-red-600">Register</Link></li>		 */}
           </ul>
+          </div>
 
           {/* Mobile Menu Button */}
+          <div>
           <button
             className="lg:hidden text-gray-700"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -61,7 +57,12 @@ const Volunteer = () => {
               />
             </svg>
           </button>
+          <div className="hidden space-x-6 lg:flex w-full p-4">
+          <AuthButtons />
 
+          </div>
+
+          </div>
         </nav>
 
         {/* Mobile Menu */}
@@ -69,9 +70,7 @@ const Volunteer = () => {
           <div className="lg:hidden bg-white shadow-md">
             <ul className="space-y-4 p-4">
 			<nav className="flex flex-row justify-between w-full items-center p-2 bg-slate-50">
-			<Link href="/" className="text-xl font-bold">
-				{/* <span className="font-light">Welcome back: </span> */}
-			</Link>
+			
 			<AuthButtons />
 		</nav>
             </ul>
