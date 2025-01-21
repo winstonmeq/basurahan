@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
-import { Readable } from 'stream';
+// import { Readable } from 'stream';
 import { PrismaClient } from '@prisma/client'; 
 
 
@@ -55,13 +55,13 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
 
 
-    var mime = file.type
-    var encoding = 'base64'
-    var base64Data = Buffer.from(buffer).toString('base64')
-    var fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
+    const mime = file.type
+    const encoding = 'base64'
+    const base64Data = Buffer.from(buffer).toString('base64')
+    const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
 
     // Convert Buffer to Readable Stream
-    const stream = Readable.from(buffer);
+    // const stream = Readable.from(buffer);
 
     console.log(formData)
 
@@ -69,9 +69,9 @@ export async function POST(req: NextRequest) {
 
       const uploadToCloudinary = () => {
         return new Promise((resolve, reject) => {
-          var result = cloudinary.uploader.upload(fileUri,{
+          const result = cloudinary.uploader.upload(fileUri,{
             folder: 'basurahan',
-            invalidate: true
+            invalidate: true,
           }) 
              .then ((result) => {
             console.log(result)
@@ -81,7 +81,9 @@ export async function POST(req: NextRequest) {
               console.log(error)
               reject(error)
             })
+            console.log(result)
         })
+        
       }
     
 
@@ -108,15 +110,15 @@ export async function POST(req: NextRequest) {
     const { secure_url } = uploadResult as { secure_url: string };
 
 
-    // await prisma.image.create({
-    //   data: {
-    //     filename: secure_url,
-    //     title,
-    //     location,
-    //     remarks,
-    //     userId
-    //   },
-    // });
+    await prisma.image.create({
+      data: {
+        filename: secure_url,
+        title,
+        location,
+        remarks,
+        userId
+      },
+    });
 
     return NextResponse.json({ secure_url });
 
