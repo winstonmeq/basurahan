@@ -15,10 +15,20 @@ cloudinary.config({
 
 export const runtime = 'nodejs'; // Ensure compatibility with Cloudinary SDK
 
+
 export async function POST(req: NextRequest) {
-  try {
+
+
+
+
     const formData = await req.formData();
+
     const file = formData.get('image') as Blob | null;
+
+
+
+
+
 
     const title = formData.get('title') as string | null;
     const location = formData.get('location') as string | null;
@@ -30,6 +40,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
 
+      
+
+
+
+
+
+
     if (!title || !location || !remarks || !userId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
@@ -37,36 +54,69 @@ export async function POST(req: NextRequest) {
     // Convert the Blob to a Buffer
     const buffer = Buffer.from(await file.arrayBuffer());
 
+
+    var mime = file.type
+    var encoding = 'base64'
+    var base64Data = Buffer.from(buffer).toString('base64')
+    var fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data
+
     // Convert Buffer to Readable Stream
     const stream = Readable.from(buffer);
 
     console.log(formData)
-    // Cloudinary Upload
-    const uploadResult = await new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        { folder: 'basurahan' }, // Optional: specify folder
-        (error, result) => {
-          if (error) {
-            return reject(error);
-          }
-          resolve(result);
-        }
-      );
-      stream.pipe(uploadStream); // Pipe the readable stream to Cloudinary
-    });
+
+    try {
+
+      const uploadToCloudinary = () => {
+        return new Promise((resolve, reject) => {
+          var result = cloudinary.uploader.upload(fileUri,{
+            folder: 'basurahan',
+            invalidate: true
+          }) 
+             .then ((result) => {
+            console.log(result)
+            resolve(result)
+          })
+            .catch((error) => {
+              console.log(error)
+              reject(error)
+            })
+        })
+      }
+    
+
+      const uploadResult =  await uploadToCloudinary()
+
+    
+    
+    // // Cloudinary Upload
+    // const uploadResult = await new Promise((resolve, reject) => {
+    //   const uploadStream = cloudinary.uploader.upload_stream(
+    //     { folder: 'basurahan' }, // Optional: specify folder
+    //     (error, result) => {
+    //       if (error) {
+    //         return reject(error);
+    //       }
+    //       resolve(result);
+    //     }
+    //   );
+    //   stream.pipe(uploadStream); // Pipe the readable stream to Cloudinary
+    // });
 
     // Ensure the result has `secure_url`
+
     const { secure_url } = uploadResult as { secure_url: string };
 
-    await prisma.image.create({
-      data: {
-        filename: secure_url,
-        title,
-        location,
-        remarks,
-        userId
-      },
-    });
+
+    // await prisma.image.create({
+    //   data: {
+    //     filename: secure_url,
+    //     title,
+    //     location,
+    //     remarks,
+    //     userId
+    //   },
+    // });
 
     return NextResponse.json({ secure_url });
 
