@@ -11,10 +11,10 @@ import {
 import Image from "next/image";
 import PostBox from "./postbox";
 import Link from "next/link";
-import CommentBox from "./comment/page";
+import CommentBoxTable from "./commentBox";
 
 interface ImageData {
-  id: number; // Adjust type based on your API
+  id: string; // Adjust type based on your API
   title: string;
   location: string;
   filename: string;
@@ -26,7 +26,8 @@ interface ImageData {
   };
 }
 
-const Datatables = () => {
+const Datatables = ({userId}:{userId:string}) => {
+
   const [images, setImages] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -115,7 +116,7 @@ const Datatables = () => {
                   </CardFooter>
                 </Card>
               <div>
-                  <CommentBox />
+                  <CommentBoxTable userId={userId} imageId={item.id}  />
                 </div></div>
             ))}
             

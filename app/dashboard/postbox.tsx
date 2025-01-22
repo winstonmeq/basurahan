@@ -37,7 +37,7 @@ const PostBox = () => {
           <button className="flex items-center space-x-2 text-red-500 hover:bg-gray-100 px-4 py-2 rounded-lg">
             <i className="fas fa-video"></i>
             <span className="text-sm font-medium">
-            <Link href="/dashboard/cloudinary">Report</Link>
+            <Link href="/dashboard/cloudinary">Tagged</Link>
             </span>
           </button>
   

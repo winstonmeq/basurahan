@@ -68,7 +68,7 @@ export default function UploadPage({ userId }: { userId: string }) {
       console.error('Error during image upload:', error);
       setUploadStatus('Upload failed');
     } finally {
-      // router.back()
+      router.back()
     }
   };
 

@@ -37,7 +37,7 @@ const Dashboard_page = async () => {
         )}
       </div>
       <div>
-        <Datatable />
+        <Datatable userId={session?.user.id} />
       </div>
     </div>
   );

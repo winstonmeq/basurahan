@@ -22,6 +22,8 @@ export default function UploadPage({userId}:{userId:string}) {
     }
   };
    const router = useRouter()
+
+   
   const handleUpload = async () => {
     if (!selectedImage) {
       setUploadStatus('Please select an image.');
