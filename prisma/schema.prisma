@@ -102,3 +102,16 @@ model Verification {
   @@map("verification")
 }
 
+model Emergency {
+  id        String    @id @default(cuid()) @map("_id")
+  emergency String
+  lat       String
+  long      String
+  mobile    String
+  barangay  String
+  name      String
+  position  String
+  createdAt  DateTime?
+  updatedAt  DateTime?
+}
+
