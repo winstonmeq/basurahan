@@ -1,24 +1,19 @@
-import { PrismaClient } from '@prisma/client'; 
+import { PrismaClient } from '@prisma/client';
 import { NextResponse, NextRequest } from 'next/server';
 
 const prisma = new PrismaClient();
 
-
-
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
-    const emergency = formData.get('emergency') as string | null;    
-    const lat = formData.get('lat') as string | null;    
-    const long = formData.get('long') as string | null;    
-    const mobile = formData.get('mobile') as string | null;    
-    const position = formData.get('position') as string | null;    
+    // Parse the JSON body from the request
+    const requestBody = await request.json();
 
-    const barangay = formData.get('barangay') as string | null;
-    const name = formData.get('name') as string | null;
+    // Extract fields from the JSON body
+    const { emergency, lat, long, barangay, name, mobile, position } = requestBody;
 
-  
+    console.log(requestBody);
 
+    // Validate required fields
     if (!emergency || !lat || !long || !barangay || !name || !position || !mobile) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
@@ -27,56 +22,46 @@ export async function POST(request: Request) {
     await prisma.emergency.create({
       data: {
         emergency,
-        lat, long, name, barangay, position, mobile
+        lat,
+        long,
+        barangay,
+        name,
+        mobile,
+        position,
       },
     });
 
-    return NextResponse.json({ message: 'emergency successfully' }, { status: 201 });
+    return NextResponse.json({ message: 'Emergency data saved successfully' }, { status: 201 });
 
   } catch (error) {
-
     console.error('Error during saving data:', error);
-
     return NextResponse.json({ message: 'Failed to save data' }, { status: 500 });
-
   } finally {
-
     await prisma.$disconnect();
-
   }
 }
 
-
-
-export async function GET(request:NextRequest) {
-
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get('page') || '1', 10);
   const limit = parseInt(searchParams.get('limit') || '50', 10);
   const skip = (page - 1) * limit;
 
   try {
-
     const emergency_data = await prisma.emergency.findMany({
       skip,
       take: limit,
-
       orderBy: {
-        createdAt: 'desc', // Assumes `createdAt` is a field in your `image` table
+        createdAt: 'desc', // Assumes `createdAt` is a field in your `emergency` table
       },
-      
-    })
-    
+    });
+
     const totalRecords = await prisma.emergency.count(); // Total number of records
 
-    return NextResponse.json({emergency_data, totalRecords})
+    return NextResponse.json({ emergency_data, totalRecords });
 
   } catch (error) {
-
-    console.error("Error fetching patients:", error)
-
-    return NextResponse.error()
+    console.error("Error fetching emergency data:", error);
+    return NextResponse.error();
   }
 }
-
-
