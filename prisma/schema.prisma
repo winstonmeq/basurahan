@@ -111,7 +111,7 @@ model Emergency {
   barangay  String
   name      String
   position  String
-  createdAt  DateTime?
-  updatedAt  DateTime?
+  createdAt  DateTime
+  updatedAt  DateTime
 }
 
