@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
   try {
     const emergency_data = await prisma.emergency.findMany({
       skip,
-      take: limit,
+      take: 5,
       orderBy: {
         createdAt: 'desc',
       },
