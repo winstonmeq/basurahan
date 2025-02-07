@@ -16,9 +16,9 @@ import CommentBoxTable from "./commentBox";
 interface ImageData {
   id: string; // Adjust type based on your API
   title: string;
-  location: string;
+  latitude: string;
   filename: string;
-  remarks: string;
+  longitude: string;
   user: {
     id: string;
     name: string;
@@ -108,7 +108,7 @@ const Datatables = ({userId}:{userId:string}) => {
                   <CardFooter className="bg-gray-300 p-3">                    
                       <div>
                         <Link href={`/dashboard/per_image?id=${item.id}`}>
-                          Location: {item.location}
+                          Location: {item.latitude}, {item.longitude}
                         </Link>
                       </div>
 
