@@ -25,14 +25,9 @@ export async function POST(req: NextRequest) {
 
     const file = formData.get('image') as Blob | null;
 
-
-
-
-
-
     const title = formData.get('title') as string | null;
-    const location = formData.get('location') as string | null;
-    const remarks = formData.get('remarks') as string | null;
+    const latitude = formData.get('latitude') as string | null;
+    const longitude = formData.get('longitude') as string | null;
     const userId = formData.get('userId') as string | null; // Assuming userId is passed from the frontend
 
 
@@ -41,13 +36,7 @@ export async function POST(req: NextRequest) {
     }
 
       
-
-
-
-
-
-
-    if (!title || !location || !remarks || !userId) {
+    if (!title || !latitude || !longitude || !userId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -114,8 +103,8 @@ export async function POST(req: NextRequest) {
       data: {
         filename: secure_url,
         title,
-        location,
-        remarks,
+        latitude,
+        longitude,
         userId
       },
     });

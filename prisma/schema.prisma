@@ -17,8 +17,8 @@ model Image {
   id        String    @id @default(cuid()) @map("_id")
   filename  String
   title     String
-  location  String
-  remarks   String
+  latitude  String
+  longitude String
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

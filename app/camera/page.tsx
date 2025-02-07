@@ -1,75 +1,31 @@
 
-'use client'
-import { useRef, useState, useEffect } from "react";
 
-const CameraPage: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+import React from 'react'
+import UploadPage from './upload_image'
+import { auth } from "@/auth";
+import { headers } from "next/headers";
+import { redirect } from 'next/navigation';
 
-  useEffect(() => {
-    const startCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
-        });
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play();
-        }
-      } catch (error) {
-        console.error("Error accessing camera:", error);
-      }
-    };
+const Cloudinary_page  = async () => {
 
-    startCamera();
+const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-    return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        (videoRef.current.srcObject as MediaStream).getTracks().forEach((track) => track.stop());
-      }
-    };
-  }, []);
+  if (!session) {
+    return redirect('/')
+  }
 
-  const capturePhoto = () => {
-    if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext("2d");
-      if (context) {
-        context.drawImage(videoRef.current, 0, 0, 300, 300);
-        const imageData = canvasRef.current.toDataURL("image/png");
-        setCapturedImage(imageData);
-      }
-    }
-  };
+  const user = session?.user
+
+
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-xl font-bold mb-4">Camera</h1>
-
-      {/* Video Stream */}
-      <video ref={videoRef} className="w-full max-w-sm border rounded-lg shadow-lg" autoPlay playsInline />
-
-      {/* Capture Button */}
-      <button
-        onClick={capturePhoto}
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
-      >
-        Capture Photo
-      </button>
-
-      {/* Canvas (Hidden for Capturing) */}
-      <canvas ref={canvasRef} className="hidden" width={300} height={300} />
-
-      {/* Show Captured Image */}
-      {capturedImage && (
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold">Captured Image:</h3>
-          <img src={capturedImage} alt="Captured" className="w-full max-w-sm rounded-lg shadow-md" />
-        </div>
-      )}
+    <div className='flex w-full h-screen justify-center items-center'>
+        <UploadPage userId={user?.id} />
     </div>
-  );
-};
+  )
+}
 
-export default CameraPage;
+export default Cloudinary_page

@@ -11,10 +11,12 @@ export default function UploadPage({ userId }: { userId: string }) {
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [title, setTitle] = useState('');
-  const [location, setLocation] = useState('');
-  const [remarks, setRemarks] = useState('');
+
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [uploadedImageURL, setUploadedImageURL] = useState<string | null>(null);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -33,7 +35,7 @@ export default function UploadPage({ userId }: { userId: string }) {
       return;
     }
 
-    if (!title || !location || !remarks) {
+    if (!title || !latitude || !longitude) {
       setUploadStatus('Please fill out all fields.');
       return;
     }
@@ -41,9 +43,14 @@ export default function UploadPage({ userId }: { userId: string }) {
     const formData = new FormData();
     formData.append('image', selectedImage);
     formData.append('title', title);
-    formData.append('location', location);
-    formData.append('remarks', remarks);
     formData.append('userId', userId);
+
+      // Append latitude and longitude if available
+      if (latitude !== null && longitude !== null) {
+        formData.append('latitude', latitude.toString());
+        formData.append('longitude', longitude.toString());
+    }
+
 
     try {
       setUploadStatus('Uploading...');
@@ -103,16 +110,16 @@ export default function UploadPage({ userId }: { userId: string }) {
           />
           <Input
             type="text"
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Latitude"
+            value={latitude}
+            onChange={(e) => setLatitude(e.target.value)}
             className="mb-4"
           />
           <Input
             type="text"
-            placeholder="Remarks"
-            value={remarks}
-            onChange={(e) => setRemarks(e.target.value)}
+            placeholder="Longitude"
+            value={longitude}
+            onChange={(e) => setLongitude(e.target.value)}
             className="mb-4"
           />
          

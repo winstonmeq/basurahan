@@ -45,13 +45,13 @@ export async function POST(request: Request) {
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get('page') || '1', 10);
-  const limit = parseInt(searchParams.get('limit') || '50', 10);
+  const limit = 5;
   const skip = (page - 1) * limit;
 
   try {
     const emergency_data = await prisma.emergency.findMany({
       skip,
-      take: 5,
+      take: limit,
       orderBy: {
         createdAt: 'desc',
       },
