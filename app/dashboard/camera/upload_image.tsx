@@ -33,6 +33,12 @@ export default function UploadPage({ userId }: { userId: string }) {
 
         const startCamera = async () => {
             try {
+                // Check if navigator.mediaDevices and getUserMedia are available
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    setUploadStatus("Camera access is not supported in this browser.");
+                    return;
+                }
+
                 const newStream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: "environment" },
                 });

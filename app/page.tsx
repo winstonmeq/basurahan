@@ -23,10 +23,24 @@ export default function EcoMapPage() {
       {/* What We Do */}
       <section className="p-6 bg-white">
         <h2 className="text-2xl font-bold text-center">WHAT WE DO</h2>
-        <div className="flex justify-center gap-4 my-4">
-          <Image src="/images/pic4.jpg" alt="Trash Area" width={300} height={200} className="rounded-lg shadow-md" />
-          <Image src="/images/pic5.jpg" alt="Garbage Truck" width={300} height={200} className="rounded-lg shadow-md" />
-        </div>
+        <div className="flex justify-center gap-4 my-4 p-4">
+      <Image
+        src="/images/pic4.jpg"
+        alt="Trash Area"
+        width={200}
+        height={200}
+        layout="responsive"
+        className="rounded-lg shadow-md"
+      />
+      <Image
+        src="/images/pic5.jpg"
+        alt="Garbage Truck"
+        width={200}
+        height={200}
+        layout="responsive"
+        className="rounded-lg shadow-md"
+      />
+    </div>
         <p className="text-gray-700 text-center max-w-2xl mx-auto">
           Designed to help identify and address areas with high-concentration of trash in rural areas, 
           all you have to do is take a picture and EcoMap will immediately alert your Local Government Units for clean-ups.
