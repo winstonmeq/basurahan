@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 const PostBox: React.FC = () => {
-  const openCameraWindow = () => {
-    window.open("/camera", "_blank", "width=600,height=800");
+  const router = useRouter();
+
+  const openCameraInSamePage = () => {
+    router.push('/dashboard/camera');
   };
 
   return (
@@ -23,8 +26,8 @@ const PostBox: React.FC = () => {
 
         {/* Input Placeholder */}
         <button className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-gray-600 focus:outline-none">
-          <Link href="/dashboard/cloudinary">
-            <p className="text-left">Post Photo and Address</p>
+          <Link href="/dashboard/maps">
+            <p className="text-left">Post Photo and Maps</p>
           </Link>
         </button>
       </div>
@@ -34,9 +37,9 @@ const PostBox: React.FC = () => {
 
       {/* Bottom Section: Buttons */}
       <div className="flex justify-between items-center">
-        {/* Open Camera in New Window */}
+        {/* Open Camera in Same Window */}
         <button
-          onClick={openCameraWindow}
+          onClick={openCameraInSamePage}
           className="flex items-center space-x-2 text-blue-500 hover:bg-gray-100 px-4 py-2 rounded-lg"
         >
           <i className="fas fa-camera"></i>
@@ -46,7 +49,7 @@ const PostBox: React.FC = () => {
         {/* Reports Button */}
         <button className="flex items-center space-x-2 text-yellow-500 hover:bg-gray-100 px-4 py-2 rounded-lg">
           <i className="fas fa-smile"></i>
-          <span className="text-sm font-medium">Reports</span>
+          <Link href={"/dashboard/cloudinary"}><span className="text-sm font-medium">Upload</span></Link>
         </button>
       </div>
     </div>

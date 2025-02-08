@@ -21,13 +21,18 @@ const items = [
     icon: Home,
   },
   {
+    title: "Admin",
+    url: "/admin",
+    icon: Inbox,
+  },
+  {
     title: "Upload",
     url: "/dashboard/cloudinary",
     icon: Inbox,
   },
   {
     title: "Maps",
-    url: "/dashboard/map",
+    url: "/dashboard/maps",
     icon: Map,
   },
   {

@@ -9,13 +9,17 @@ interface Comment {
   };
 }
 
-export default function CommentBoxTable({ userId, imageId }: { userId: string; imageId: string }) {
+export default function CommentBoxTable({ userId, imageId, url }: { userId: string; imageId: string; url: string }) {
   const [comment_data, setCommentData] = useState<Comment[]>([]);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
+  const [liked, setLiked] = useState(false);
 
+  const handleLikeClick = () => {
+    setLiked(!liked);
+  };
 
   
   const fetchComment = useCallback(async () => {
@@ -87,14 +91,30 @@ export default function CommentBoxTable({ userId, imageId }: { userId: string; i
     );
   }
 
+  
+
+
+ const handleShareClick = () => {
+    // Construct the Facebook share URL with the image URL
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+
+    // Open Facebook in a new window
+    window.open(shareUrl, '_blank');
+  };
+
   return (
     <div className="flex items-center justify-center mt-2">
       <div className="w-full bg-white border rounded-lg shadow-md p-1">
         {/* Top bar with buttons */}
-        <div className="flex items-center justify-between">
-          <button className="text-gray-500 hover:text-blue-500">Tinuod</button>
+        <div className="flex items-center justify-between p-2">
+        <button
+        className={`text-gray-500 hover:text-blue-500 ${liked ? 'text-red-500' : ''}`} // Change color on like
+        onClick={handleLikeClick}
+      >
+        {liked ? 'Like❤️' : 'Like'}
+      </button>
           <button className="text-gray-500 hover:text-blue-500">Comment</button>
-          <button className="text-gray-500 hover:text-blue-500">Share</button>
+          <button onClick={handleShareClick} className="text-gray-500 hover:text-blue-500">Share</button>
         </div>
 
         {/* Input area */}
@@ -129,7 +149,7 @@ export default function CommentBoxTable({ userId, imageId }: { userId: string; i
           {uploadStatus && <div>{uploadStatus}</div>}
 
           {/* Emoji and attachments row */}
-          <div className="mt-1 flex items-center space-x-4">
+          <div className="mt-1 flex items-center p-2 space-x-4">
             <button className="text-gray-500 hover:text-blue-500">😊</button>
             <button className="text-gray-500 hover:text-blue-500">📸</button>
             <button className="text-gray-500 hover:text-blue-500">GIF</button>
