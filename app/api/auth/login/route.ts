@@ -23,12 +23,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ response });
 
-  } catch (error: any) { // Use 'any' or 'Error' for type safety
+  } catch (error) { // Use 'any' or 'Error' for type safety
 
     console.error('Error signing in:', error);
 
     // Properly handle the error and return a useful message
-    return NextResponse.json({ message: 'Failed to sign in', error: error.message || 'Unknown error' }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to sign in' }, { status: 500 });
 
   } finally {
     await prisma.$disconnect();
