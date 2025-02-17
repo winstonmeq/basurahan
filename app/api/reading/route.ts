@@ -1,7 +1,7 @@
 
 
 import { PrismaClient } from '@prisma/client'; 
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -12,11 +12,12 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const temp = formData.get('temp') as string | null;
-    const voltage = formData.get('voltage') as string | null;    
+    const voltage = formData.get('voltage') as string | null; 
+    const aeration = formData.get('aeration') as boolean | null;
 
  console.log(formData)
 
-    if (!temp || !voltage ) {
+    if (!temp || !voltage || !aeration ) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
       data: {
         temp,
         voltage,
+        aeration
      },
     });
 
@@ -34,11 +36,37 @@ export async function POST(request: Request) {
 
     console.error('error comment:', error);
     
-    return NextResponse.json({ message: 'Failed to save comment' }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to save reading' }, { status: 500 });
 
   } finally {
 
     await prisma.$disconnect();
 
+  }
+}
+
+
+
+export async function GET(request: NextRequest) {
+
+  try {
+    const reading_data = await prisma.reading.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    const totalRecords = await prisma.reading.count();
+
+    
+    return NextResponse.json({ reading_data, totalRecords });;
+
+
+  } catch (error) {
+
+    console.error("Error fetching emergency data:", error);
+
+    return NextResponse.error();
+    
   }
 }

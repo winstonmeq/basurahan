@@ -119,6 +119,7 @@ model Reading {
   id        String    @id @default(cuid()) @map("_id")
   temp      String
   voltage   String
+  aeration  Boolean
   createdAt  DateTime @default(now())
   updatedAt  DateTime  @updatedAt
 }
