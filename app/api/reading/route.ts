@@ -1,7 +1,7 @@
 
 
 import { PrismaClient } from '@prisma/client'; 
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse} from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
 
 
 
-export async function GET(request: NextRequest) {
+export async function GET() {
 
   try {
     const reading_data = await prisma.reading.findMany({
@@ -67,6 +67,6 @@ export async function GET(request: NextRequest) {
     console.error("Error fetching emergency data:", error);
 
     return NextResponse.error();
-    
+
   }
 }
